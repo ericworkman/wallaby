@@ -167,12 +167,10 @@ defmodule Wallaby.Chrome.Chromedriver.Server do
 
   @spec open_chromedriver_port(String.t(), port_number) :: port
   defp open_chromedriver_port(chromedriver_path, port_number) when is_binary(chromedriver_path) do
-    res = Port.open(
+    Port.open(
       {:spawn_executable, to_charlist(wrapper_script())},
       port_opts(chromedriver_path, port_number)
     )
-    Logger.warning("debug #{inspect(res)}")
-    res
   end
 
   @spec analyze_output(String.t()) :: {:os_pid, os_pid} | :unknown
