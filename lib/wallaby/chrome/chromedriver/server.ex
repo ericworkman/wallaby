@@ -1,7 +1,6 @@
 defmodule Wallaby.Chrome.Chromedriver.Server do
   @moduledoc false
   use GenServer
-  require Logger
 
   alias Wallaby.Chrome.Chromedriver.ReadinessChecker
   alias Wallaby.Driver.Utils
