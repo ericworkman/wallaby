@@ -1,6 +1,7 @@
 defmodule Wallaby.Chrome.Chromedriver.Server do
   @moduledoc false
   use GenServer
+  require Logger
 
   alias Wallaby.Chrome.Chromedriver.ReadinessChecker
   alias Wallaby.Driver.Utils
@@ -166,10 +167,12 @@ defmodule Wallaby.Chrome.Chromedriver.Server do
 
   @spec open_chromedriver_port(String.t(), port_number) :: port
   defp open_chromedriver_port(chromedriver_path, port_number) when is_binary(chromedriver_path) do
-    Port.open(
+    res = Port.open(
       {:spawn_executable, to_charlist(wrapper_script())},
       port_opts(chromedriver_path, port_number)
     )
+    Logger.warning("debug #{inspect(res)}")
+    res
   end
 
   @spec analyze_output(String.t()) :: {:os_pid, os_pid} | :unknown
@@ -191,7 +194,7 @@ defmodule Wallaby.Chrome.Chromedriver.Server do
   defp args(chromedriver, port),
     do: [
       chromedriver,
-      "--log-level=OFF",
+      #"--log-level=OFF",
       "--port=#{port}"
     ]
 
