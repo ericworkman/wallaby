@@ -367,7 +367,6 @@ defmodule Wallaby.Chrome do
     |> Keyword.get_lazy(:capabilities, &default_capabilities/0)
     |> put_headless_config(opts)
     |> put_binary_config(opts)
-    |> IO.inspect(label: "capabilities")
   end
 
   @spec wait_until_ready!(timeout) :: :ok | no_return
